@@ -1,45 +1,56 @@
 package com.example.makemaze2.controller;
 
-import com.example.makemaze2.dto.LoginResponsetDto;
+import com.example.makemaze2.domain.Map;
+import com.example.makemaze2.domain.User;
+import com.example.makemaze2.dto.LoginRequestDto;
 import com.example.makemaze2.dto.MapDto;
+import com.example.makemaze2.service.MapService;
 import com.example.makemaze2.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
+    private final MapService mapService;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponsetDto> login() {
-        return ResponseEntity.ok(new LoginResponsetDto());
+    public ResponseEntity<User> login(
+            @RequestBody LoginRequestDto loginRequestDto
+    ) {
+        return ResponseEntity.ok(userService.login(loginRequestDto));
     }
 
     @PostMapping("/map/{googleId}")
-    public ResponseEntity<ArrayList<MapDto>> addMap(
+    public ResponseEntity<Map> addMap(
             @PathVariable("googleId") String googleId,
-            @RequestBody MapDto mapdto
+            @RequestBody MapDto mapDto
     ) {
-        return ResponseEntity.ok(new ArrayList<MapDto>());
+        return ResponseEntity.ok(new Map());
     }
 
     @GetMapping("/map/{googleId}")
-    public ResponseEntity<MapDto> getMap(
+    public ResponseEntity<List<Map>> getMap(
             @PathVariable("googleId") String googleId
     ) {
-        return ResponseEntity.ok(new MapDto());
+        return ResponseEntity.ok(mapService.findMap(googleId));
     }
 
-    @DeleteMapping("/map/{googleId}/{mapId}")
-    public ResponseEntity<MapDto> deleteMap(
-            @PathVariable("googleId") String googleId,
-            @PathVariable("mapId") String mapId
+    @DeleteMapping("/map/{mapId}")
+    public ResponseEntity<Map> deleteMap(
+            @PathVariable("mapId") Long mapId
     ) {
+        return ResponseEntity.ok(mapService.deleteMap(mapId));
+    }
+
+    @GetMapping("/map")
+    public ResponseEntity<MapDto> getAllMap() {
         return ResponseEntity.ok(new MapDto());
     }
 }

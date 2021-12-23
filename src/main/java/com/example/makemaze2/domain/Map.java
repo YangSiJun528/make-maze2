@@ -1,9 +1,6 @@
 package com.example.makemaze2.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,11 +9,13 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@Table(name = "map")
 public class Map {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "map_id")
+    private Long mapId;
 
     @Column(name = "img")
     private String img;
@@ -27,5 +26,4 @@ public class Map {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
 }
