@@ -9,6 +9,7 @@ import com.example.makemaze2.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +31,10 @@ public class UserController {
     @PostMapping("/map/{googleId}")
     public ResponseEntity<Map> addMap(
             @PathVariable("googleId") String googleId,
-            @RequestBody MapDto mapDto
+            @RequestPart(value = "map") MapDto mapDto,
+            @RequestPart(value = "img", required = false) MultipartFile multipartFile
     ) {
+
         return ResponseEntity.ok(new Map());
     }
 
