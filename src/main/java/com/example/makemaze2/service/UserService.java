@@ -38,8 +38,8 @@ public class UserService {
         }
     }
 
-    public Map addMap(MapDto mapDto, MultipartFile multipartFile) {
-        Optional<User> user = userRepository.findByGoogleId(mapDto.getGoogleId());
+    public Map addMap(String googleId, MapDto mapDto, MultipartFile multipartFile) {
+        Optional<User> user = userRepository.findByGoogleId(googleId);
         if(!multipartFile.isEmpty()){
             String originalFile  = multipartFile.getOriginalFilename();
             String originalFileExtension = originalFile.substring(originalFile.lastIndexOf("."));

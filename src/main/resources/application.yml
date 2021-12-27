@@ -1,4 +1,8 @@
 spring:
+  servlet:
+    multipart:
+      maxFileSize: 10MB
+      maxRequestSize: 10MB
   datasource:
     url: jdbc:h2:tcp://localhost/~/test
     username: sa

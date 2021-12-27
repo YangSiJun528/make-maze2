@@ -7,13 +7,15 @@ import com.example.makemaze2.dto.MapDto;
 import com.example.makemaze2.service.MapService;
 import com.example.makemaze2.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
+@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 public class UserController {
@@ -28,14 +30,16 @@ public class UserController {
         return ResponseEntity.ok(userService.login(loginRequestDto));
     }
 
-    @PostMapping("/map/{googleId}")
+    @PostMapping(value = "/map/{googleId}")
+    @ResponseBody
     public ResponseEntity<Map> addMap(
             @PathVariable("googleId") String googleId,
             @RequestPart(value = "map") MapDto mapDto,
-            @RequestPart(value = "img", required = false) MultipartFile multipartFile
+            @RequestPart(value = "image", required = false) MultipartFile multipartFile
     ) {
-
-        return ResponseEntity.ok(new Map());
+        System.out.println(mapDto);
+        System.out.println(multipartFile);
+        return ResponseEntity.ok(userService.addMap(googleId, mapDto, multipartFile));
     }
 
     @GetMapping("/map/{googleId}")
@@ -53,7 +57,12 @@ public class UserController {
     }
 
     @GetMapping("/map")
-    public ResponseEntity<MapDto> getAllMap() {
-        return ResponseEntity.ok(new MapDto());
+    public ResponseEntity<List<Map>> getAllMap() {
+        return ResponseEntity.ok(mapService.findAllMap());
+    }
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello..!";
     }
 }

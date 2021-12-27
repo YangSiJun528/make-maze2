@@ -1,9 +1,11 @@
 package com.example.makemaze2.service;
 
 import com.example.makemaze2.domain.Map;
+import com.example.makemaze2.dto.MapDto;
 import com.example.makemaze2.repository.MapRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,8 +16,14 @@ public class MapService {
 
     private final MapRepository mapRepository;
 
-//    public Map addMap(MapDto mapDto) {
-//        Map newMap = Map.builder()
+//    public Map addMap(String googleId, MapDto mapDto, MultipartFile multipartFile) {
+//        Optional<MultipartFile> img = Optional.ofNullable(multipartFile);
+//
+//        if(!img.isPresent()) {  // 만약 Null 일때
+//
+//        } else {
+//
+//        }
 //
 //        return new Map();
 //    }
@@ -31,7 +39,7 @@ public class MapService {
         return map.get();
     }
 
-    public List<Map> findAllMap(String googleId) {
+    public List<Map> findAllMap() {
         Optional<List<Map>> map = Optional.ofNullable(mapRepository.findAll());
         return map.get();
     }
