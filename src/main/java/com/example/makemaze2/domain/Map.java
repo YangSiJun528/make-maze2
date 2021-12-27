@@ -24,6 +24,9 @@ public class Map {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "mapName")
+    private String mapName;
+
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "user_id")

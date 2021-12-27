@@ -55,6 +55,7 @@ public class UserService {
             Map map = Map.builder()
                     .content(mapDto.getBlock())
                     .user(user.get())
+                    .mapName(mapDto.getMapName())
                     .img("/img/" + storedFileName)
                     .build();
             mapRepository.save(map);
@@ -65,6 +66,7 @@ public class UserService {
             Map map = Map.builder()
                     .content(mapDto.getBlock())
                     .user(user.get())
+                    .mapName(mapDto.getMapName())
                     .img("")
                     .build();
             mapRepository.save(map);

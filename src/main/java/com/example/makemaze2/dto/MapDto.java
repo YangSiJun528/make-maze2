@@ -11,14 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 public class MapDto {
     private Long mapId;
+    private String mapName;
     private String block;
     private String image;
-
-    public Map toMap() {
-        Map map = new Map();
-        Map.builder()
-                .content(this.block)
-                .build();
-        return map;
-    }
 }
