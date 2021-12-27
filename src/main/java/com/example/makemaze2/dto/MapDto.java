@@ -10,9 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MapDto {
-    private String name;
-    private String googleId;
+    private Long mapId;
     private String block;
+    private String image;
 
     public Map toMap() {
         Map map = new Map();

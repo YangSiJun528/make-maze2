@@ -31,14 +31,11 @@ public class UserController {
     }
 
     @PostMapping(value = "/map/{googleId}")
-    @ResponseBody
-    public ResponseEntity<Map> addMap(
+    public ResponseEntity<MapDto> addMap(
             @PathVariable("googleId") String googleId,
             @RequestPart(value = "map") MapDto mapDto,
             @RequestPart(value = "image", required = false) MultipartFile multipartFile
     ) {
-        System.out.println(mapDto);
-        System.out.println(multipartFile);
         return ResponseEntity.ok(userService.addMap(googleId, mapDto, multipartFile));
     }
 

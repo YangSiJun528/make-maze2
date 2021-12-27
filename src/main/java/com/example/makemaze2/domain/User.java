@@ -1,5 +1,6 @@
 package com.example.makemaze2.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "mapId")
     List<Map> maps = new ArrayList<Map>();
 }

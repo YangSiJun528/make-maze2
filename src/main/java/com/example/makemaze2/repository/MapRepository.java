@@ -1,6 +1,8 @@
 package com.example.makemaze2.repository;
 
 import com.example.makemaze2.domain.Map;
+import com.example.makemaze2.domain.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,4 +19,7 @@ import java.util.Optional;
 public interface MapRepository extends JpaRepository<Map,Long> {
     @Query(value = "SELECT m FROM Map m INNER JOIN User u ON m.user.userId = u.userId WHERE u.googleId = :googleId")
     List<Map> findAllByGoogleId(@Param("googleId") String googleId);
+
+    @Override
+    List<Map> findAll();
 }

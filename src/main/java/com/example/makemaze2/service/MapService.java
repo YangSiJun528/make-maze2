@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +42,7 @@ public class MapService {
 
     public List<Map> findAllMap() {
         Optional<List<Map>> map = Optional.ofNullable(mapRepository.findAll());
-        return map.get();
+    return map.get();
     }
 }
+
