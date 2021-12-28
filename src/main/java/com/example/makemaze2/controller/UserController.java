@@ -57,9 +57,4 @@ public class UserController {
     public ResponseEntity<List<Map>> getAllMap() {
         return ResponseEntity.ok(mapService.findAllMap());
     }
-
-    @GetMapping("/hello")
-    public String hello() {
-        return "Hello..!";
-    }
 }
