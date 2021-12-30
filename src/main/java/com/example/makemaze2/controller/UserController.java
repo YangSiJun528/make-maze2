@@ -3,6 +3,7 @@ package com.example.makemaze2.controller;
 import com.example.makemaze2.domain.Like;
 import com.example.makemaze2.domain.Map;
 import com.example.makemaze2.domain.User;
+import com.example.makemaze2.dto.LikeResDto;
 import com.example.makemaze2.dto.LoginRequestDto;
 import com.example.makemaze2.dto.MapDto;
 import com.example.makemaze2.service.LikeService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @CrossOrigin
@@ -84,7 +86,7 @@ public class UserController {
     }
 
     @GetMapping("/like/{googleId}")
-    public ResponseEntity<List<Like>> getLike(
+    public ResponseEntity<List<Optional<LikeResDto>>> getLike(
             @PathVariable("googleId") String googleId
     ) {
         return ResponseEntity.ok(likeService.findLike(googleId));
