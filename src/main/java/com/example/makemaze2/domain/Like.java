@@ -11,24 +11,16 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "map")
-public class Map {
+@Table(name = "like")
+public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "map_id")
-    private Long mapId;
+    @Column(name = "like_id")
+    private Long likeId;
 
-    @Column(name = "img")
-    private String img;
-
-    @Column(name = "content")
-    private String content;
-
-    @Column(name = "mapName")
-    private String mapName;
-
-    @Column(name = "mapCode")
-    private String mapCode;
+    @OneToOne
+    @JoinColumn(name = "map_id")
+    private Map map;
 
     @JsonBackReference
     @ManyToOne

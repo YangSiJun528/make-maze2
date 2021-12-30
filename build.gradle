@@ -23,6 +23,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.2'
+    implementation 'mysql:mysql-connector-java'
     implementation 'io.jsonwebtoken:jjwt-api:0.11.1'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'

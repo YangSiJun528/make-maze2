@@ -1,5 +1,6 @@
 package com.example.makemaze2.repository;
 
+import com.example.makemaze2.domain.Like;
 import com.example.makemaze2.domain.Map;
 import com.example.makemaze2.domain.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,12 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface MapRepository extends JpaRepository<Map,Long> {
-    @Query(value = "SELECT m FROM Map m INNER JOIN User u ON m.user.userId = u.userId WHERE u.googleId = :googleId")
-    List<Map> findAllByGoogleId(@Param("googleId") String googleId);
-
-    @Override
-    List<Map> findAll();
-
-    Map findByMapCode(@Param("mapCode") String mapCode);
+public interface LikeRepository extends JpaRepository<Like,Long> {
+    @Query(value = "SELECT l FROM Like l INNER JOIN User u ON l.user.userId = u.userId WHERE u.googleId = :googleId")
+    List<Like> findAllByGoogleId(@Param("googleId") String googleId);
 }

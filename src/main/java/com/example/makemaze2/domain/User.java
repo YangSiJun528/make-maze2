@@ -29,5 +29,8 @@ public class User {
 
     @JsonBackReference
     @OneToMany(mappedBy = "mapId")
-    List<Map> maps = new ArrayList<Map>();
+    private List<Map> maps = new ArrayList<Map>();
+
+    @OneToOne(mappedBy = "likeId")
+    private Like likes = new Like();
 }

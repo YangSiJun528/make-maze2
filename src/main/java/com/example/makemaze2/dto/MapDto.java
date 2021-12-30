@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class MapDto {
     private Long mapId;
     private String mapName;
+    private String mapCode;
     private String block;
     private String image;
 }

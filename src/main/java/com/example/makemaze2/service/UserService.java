@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -25,6 +26,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final MapRepository mapRepository;
     private final String local = "C:/Users/user/Downloads/oauth-without-spring-security-master/make-maze2/src/main/resources/static/img";
+    Random random = new Random();
 
     public User login(LoginRequestDto loginRequestDto) {
         Optional<User> user = userRepository.findByGoogleId(loginRequestDto.getGoogleId());
@@ -40,9 +42,28 @@ public class UserService {
         }
     }
 
+    public String randomCode() {
+        String generatedString = random.ints(48,122 + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(12)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+        return generatedString;
+    }
+
+    public boolean isValidaRandomCode(String code) {
+        Map map = mapRepository.findByMapCode(code);
+        return map == null ? true : false;
+    }
+
     public MapDto addMap(String googleId, MapDto mapDto, MultipartFile multipartFile) {
         Optional<User> user = userRepository.findByGoogleId(googleId);
-        if (!multipartFile.isEmpty()) {
+        Optional<MultipartFile> image = Optional.ofNullable(multipartFile);
+        String code;
+        do {
+            code = randomCode();
+        } while (!isValidaRandomCode(code));
+        if (image.isPresent()) {
             String originalFile = multipartFile.getOriginalFilename();
             String originalFileExtension = originalFile.substring(originalFile.lastIndexOf("."));
             String storedFileName = UUID.randomUUID().toString().replaceAll("-", "") + originalFileExtension;
@@ -55,21 +76,27 @@ public class UserService {
             Map map = Map.builder()
                     .content(mapDto.getBlock())
                     .user(user.get())
+                    .mapCode(code)
                     .mapName(mapDto.getMapName())
                     .img("/img/" + storedFileName)
                     .build();
             mapRepository.save(map);
             mapDto.setImage(map.getImg());
+            mapDto.setMapCode(map.getMapCode());
             mapDto.setMapId(map.getMapId());
             return mapDto;
         } else {
             Map map = Map.builder()
                     .content(mapDto.getBlock())
                     .user(user.get())
+                    .mapCode(code)
                     .mapName(mapDto.getMapName())
                     .img("")
                     .build();
             mapRepository.save(map);
+            mapDto.setImage(map.getImg());
+            mapDto.setMapCode(map.getMapCode());
+            mapDto.setMapId(map.getMapId());
             return mapDto;
         }
     }

@@ -1,12 +1,11 @@
 package com.example.makemaze2.service;
 
 import com.example.makemaze2.domain.Map;
-import com.example.makemaze2.dto.MapDto;
 import com.example.makemaze2.repository.MapRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,9 +33,19 @@ public class MapService {
         return map.get();
     }
 
-    public Map deleteMap(Long mapId) {
+    public Map globalDeleteMap(Long mapId) {
         Optional<Map> map = mapRepository.findById(mapId);
         mapRepository.deleteById(map.get().getMapId());
+        return map.get();
+    }
+
+    public Map deleteMap(Long mapId, String googleId) {
+        Optional<Map> map = mapRepository.findById(mapId);
+        List<Map> userMaps = mapRepository.findAllByGoogleId(googleId);
+        userMaps.stream().filter(i -> i.getMapId() == mapId);
+        if (userMaps == null) {
+            mapRepository.deleteById(map.get().getMapId());
+        }
         return map.get();
     }
 

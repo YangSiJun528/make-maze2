@@ -1,9 +1,11 @@
 package com.example.makemaze2.controller;
 
+import com.example.makemaze2.domain.Like;
 import com.example.makemaze2.domain.Map;
 import com.example.makemaze2.domain.User;
 import com.example.makemaze2.dto.LoginRequestDto;
 import com.example.makemaze2.dto.MapDto;
+import com.example.makemaze2.service.LikeService;
 import com.example.makemaze2.service.MapService;
 import com.example.makemaze2.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ public class UserController {
 
     private final UserService userService;
     private final MapService mapService;
+    private final LikeService likeService;
 
     @PostMapping("/login")
     public ResponseEntity<User> login(
@@ -47,14 +50,50 @@ public class UserController {
     }
 
     @DeleteMapping("/map/{mapId}")
-    public ResponseEntity<Map> deleteMap(
+    public ResponseEntity<Map> globalDeleteMap(
             @PathVariable("mapId") Long mapId
     ) {
-        return ResponseEntity.ok(mapService.deleteMap(mapId));
+        return ResponseEntity.ok(mapService.globalDeleteMap(mapId));
+    }
+
+    //이거 안쓸 수도 있음 코드 확인도 안함
+    @DeleteMapping("/map/{googleId}/{mapId}")
+    public ResponseEntity<Map> deleteLike(
+            @PathVariable("mapId") Long mapId,
+            @PathVariable("googleId") String googleId
+    ) {
+        return ResponseEntity.ok(mapService.deleteMap(mapId, googleId));
     }
 
     @GetMapping("/map")
     public ResponseEntity<List<Map>> getAllMap() {
         return ResponseEntity.ok(mapService.findAllMap());
+    }
+
+    @GetMapping("/hello")
+    public String hi() {
+        return "hello...!";
+    }
+
+    @GetMapping(value = "/like/{googleId}/{mapId}")
+    public ResponseEntity<Like> addMap(
+            @PathVariable("googleId") String googleId,
+            @PathVariable("mapId") Long mapId
+    ) {
+        return ResponseEntity.ok(likeService.addLike(googleId, mapId));
+    }
+
+    @GetMapping("/like/{googleId}")
+    public ResponseEntity<List<Like>> getLike(
+            @PathVariable("googleId") String googleId
+    ) {
+        return ResponseEntity.ok(likeService.findLike(googleId));
+    }
+
+    @DeleteMapping("/like/{likeId}")
+    public ResponseEntity<Like> deleteLike(
+            @PathVariable("likeId") Long likeId
+    ) {
+        return ResponseEntity.ok(likeService.deleteLike(likeId));
     }
 }
