@@ -27,6 +27,12 @@ public class Map {
     @Column(name = "mapCode")
     private String mapCode;
 
+    @Column(name = "img")
+    private String img;
+
+    @Column(name = "userName")
+    private String userName;
+
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "user_id")

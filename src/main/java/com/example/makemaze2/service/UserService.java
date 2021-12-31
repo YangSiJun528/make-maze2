@@ -114,10 +114,14 @@ public class UserService {
                 .user(user.get())
                 .mapCode(code)
                 .mapName(mapDto.getMapName())
+                .userName(user.get().getName())
+                .img(user.get().getImg())
                 .build();
         mapRepository.save(map);
         mapDto.setMapCode(map.getMapCode());
         mapDto.setMapId(map.getMapId());
+        mapDto.setImg(user.get().getImg());
+        mapDto.setUserName(user.get().getName());
         return mapDto;
     }
 }

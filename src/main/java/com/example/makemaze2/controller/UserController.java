@@ -34,6 +34,14 @@ public class UserController {
     ) {
         return ResponseEntity.ok(userService.login(loginRequestDto));
     }
+
+    @PostMapping("/loginByEmail")
+    public ResponseEntity<User> loginByEmail(
+            @RequestBody LoginRequestDto loginRequestDto
+    ) {
+        return ResponseEntity.ok(userService.login(loginRequestDto));
+    }
+
 /*
     @PostMapping(value = "/map/{googleId}")
     public ResponseEntity<MapDto> addMap(

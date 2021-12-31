@@ -14,4 +14,6 @@ public class LikeResDto {
     private String mapName;
     private String mapCode;
     private String block;
+    private String img;
+    private String userName;
 }

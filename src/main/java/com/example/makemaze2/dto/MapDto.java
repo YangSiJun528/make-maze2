@@ -14,4 +14,6 @@ public class MapDto {
     private String mapName;
     private String mapCode;
     private String block;
+    private String img;
+    private String userName;
 }

@@ -34,6 +34,8 @@ public class LikeService {
                     .block(map.get().getContent())
                     .mapCode(map.get().getMapCode())
                     .mapName(map.get().getMapName())
+                    .userName(map.get().getUserName())
+                    .img(map.get().getImg())
                     .likeId(i.getLikeId())
                     .build();
             res.add(Optional.ofNullable(resDto));
