@@ -34,7 +34,7 @@ public class UserController {
     ) {
         return ResponseEntity.ok(userService.login(loginRequestDto));
     }
-
+/*
     @PostMapping(value = "/map/{googleId}")
     public ResponseEntity<MapDto> addMap(
             @PathVariable("googleId") String googleId,
@@ -42,6 +42,14 @@ public class UserController {
             @RequestPart(value = "image", required = false) MultipartFile multipartFile
     ) {
         return ResponseEntity.ok(userService.addMap(googleId, mapDto, multipartFile));
+    }
+*/
+    @PostMapping(value = "/map/{googleId}")
+    public ResponseEntity<MapDto> addMap(
+            @PathVariable("googleId") String googleId,
+            @RequestBody MapDto mapDto
+    ) {
+        return ResponseEntity.ok(userService.addMap(googleId, mapDto));
     }
 
     @GetMapping("/map/{googleId}")

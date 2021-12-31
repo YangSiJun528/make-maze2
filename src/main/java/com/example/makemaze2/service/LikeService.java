@@ -26,11 +26,11 @@ public class LikeService {
 
     public List<Optional<LikeResDto>> findLike(String googleId) {
         Optional<List<Like>> like = Optional.ofNullable(likeRepository.findAllByGoogleId(googleId));
-        List<Optional<Map>> list = new ArrayList<>();
         List<Optional<LikeResDto>> res = new ArrayList<>();
         like.get().stream().forEach((i) -> {
             Optional<Map> map = mapRepository.findById(i.getMapId());
             LikeResDto resDto = LikeResDto.builder()
+                    .mapId(map.get().getMapId())
                     .block(map.get().getContent())
                     .mapCode(map.get().getMapCode())
                     .mapName(map.get().getMapName())

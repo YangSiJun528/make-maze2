@@ -27,6 +27,12 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "img")
+    private String img;
+
     @JsonBackReference
     @OneToMany(mappedBy = "mapId")
     private List<Map> maps = new ArrayList<Map>();

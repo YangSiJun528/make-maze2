@@ -15,4 +15,10 @@ public class LoginRequestDto {
 
     @JsonProperty(value="email")
     private String email;
+
+    @JsonProperty(value="name")
+    private String name;
+
+    @JsonProperty(value="img")
+    private String img;
 }

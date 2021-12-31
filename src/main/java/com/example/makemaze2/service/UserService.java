@@ -34,6 +34,8 @@ public class UserService {
             User newUser = User.builder()
                     .email(loginRequestDto.getEmail())
                     .googleId(loginRequestDto.getGoogleId())
+                    .img(loginRequestDto.getImg())
+                    .name(loginRequestDto.getName())
                     .maps(new ArrayList<Map>())
                     .build();
             return userRepository.save(newUser);
@@ -55,7 +57,7 @@ public class UserService {
         Map map = mapRepository.findByMapCode(code);
         return map == null ? true : false;
     }
-
+/*
     public MapDto addMap(String googleId, MapDto mapDto, MultipartFile multipartFile) {
         Optional<User> user = userRepository.findByGoogleId(googleId);
         Optional<MultipartFile> image = Optional.ofNullable(multipartFile);
@@ -99,5 +101,23 @@ public class UserService {
             mapDto.setMapId(map.getMapId());
             return mapDto;
         }
+    }
+*/
+    public MapDto addMap(String googleId, MapDto mapDto) {
+        Optional<User> user = userRepository.findByGoogleId(googleId);
+        String code;
+        do {
+            code = randomCode();
+        } while (!isValidaRandomCode(code));
+        Map map = Map.builder()
+                .content(mapDto.getBlock())
+                .user(user.get())
+                .mapCode(code)
+                .mapName(mapDto.getMapName())
+                .build();
+        mapRepository.save(map);
+        mapDto.setMapCode(map.getMapCode());
+        mapDto.setMapId(map.getMapId());
+        return mapDto;
     }
 }

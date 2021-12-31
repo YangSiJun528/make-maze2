@@ -18,9 +18,6 @@ public class Map {
     @Column(name = "map_id")
     private Long mapId;
 
-    @Column(name = "img")
-    private String img;
-
     @Column(name = "content")
     private String content;
 
