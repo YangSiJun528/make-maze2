@@ -110,18 +110,20 @@ public class UserService {
             code = randomCode();
         } while (!isValidaRandomCode(code));
         Map map = Map.builder()
-                .content(mapDto.getBlock())
+                .content(String.valueOf(mapDto.getBlock()))
                 .user(user.get())
                 .mapCode(code)
                 .mapName(mapDto.getMapName())
                 .userName(user.get().getName())
                 .img(user.get().getImg())
+                .userGoogleId(user.get().getGoogleId())
                 .build();
         mapRepository.save(map);
         mapDto.setMapCode(map.getMapCode());
         mapDto.setMapId(map.getMapId());
         mapDto.setImg(user.get().getImg());
         mapDto.setUserName(user.get().getName());
+        mapDto.setUserName(user.get().getGoogleId());
         return mapDto;
     }
 

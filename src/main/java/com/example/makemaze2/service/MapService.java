@@ -53,5 +53,10 @@ public class MapService {
         Optional<List<Map>> map = Optional.ofNullable(mapRepository.findAll());
     return map.get();
     }
+
+    public Map findMapA(String mapId) {
+        Optional<Map> map = mapRepository.findById(Long.valueOf(mapId));
+        return map.get();
+    }
 }
 

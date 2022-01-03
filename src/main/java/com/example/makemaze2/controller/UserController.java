@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -71,6 +70,13 @@ public class UserController {
         return ResponseEntity.ok(mapService.findMap(googleId));
     }
 
+    @GetMapping("/map1/{mapId}")
+    public ResponseEntity<Map> getMapA(
+            @PathVariable("mapId") String mapId
+    ) {
+        return ResponseEntity.ok(mapService.findMapA(mapId));
+    }
+
     @DeleteMapping("/map/{mapId}")
     public ResponseEntity<Map> globalDeleteMap(
             @PathVariable("mapId") Long mapId
@@ -106,7 +112,7 @@ public class UserController {
     }
 
     @GetMapping("/like/{googleId}")
-    public ResponseEntity<List<Optional<LikeResDto>>> getLike(
+    public ResponseEntity<Optional<List<LikeResDto>>> getLike(
             @PathVariable("googleId") String googleId
     ) {
         return ResponseEntity.ok(likeService.findLike(googleId));
@@ -118,4 +124,7 @@ public class UserController {
     ) {
         return ResponseEntity.ok(likeService.deleteLike(likeId));
     }
+
 }
+
+

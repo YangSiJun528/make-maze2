@@ -33,6 +33,9 @@ public class Map {
     @Column(name = "userName")
     private String userName;
 
+    @Column(name = "userGoogleId")
+    private String userGoogleId;
+
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "user_id")

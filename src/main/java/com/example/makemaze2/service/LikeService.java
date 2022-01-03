@@ -24,9 +24,9 @@ public class LikeService {
     private final UserRepository userRepository;
     private final MapRepository mapRepository;
 
-    public List<Optional<LikeResDto>> findLike(String googleId) {
+    public Optional<List<LikeResDto>> findLike(String googleId) {
         Optional<List<Like>> like = Optional.ofNullable(likeRepository.findAllByGoogleId(googleId));
-        List<Optional<LikeResDto>> res = new ArrayList<>();
+        Optional<List<LikeResDto>> res = Optional.of(new ArrayList());
         like.get().stream().forEach((i) -> {
             Optional<Map> map = mapRepository.findById(i.getMapId());
             LikeResDto resDto = LikeResDto.builder()
@@ -38,7 +38,7 @@ public class LikeService {
                     .img(map.get().getImg())
                     .likeId(i.getLikeId())
                     .build();
-            res.add(Optional.ofNullable(resDto));
+            res.get().add(resDto);
         });
         return res;
     }
