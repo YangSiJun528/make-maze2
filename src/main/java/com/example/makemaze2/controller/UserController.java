@@ -39,7 +39,11 @@ public class UserController {
     public ResponseEntity<User> loginByEmail(
             @RequestBody LoginRequestDto loginRequestDto
     ) {
-        return ResponseEntity.ok(userService.login(loginRequestDto));
+        User user = userService.loginByEmail(loginRequestDto);
+        if(user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(user);
     }
 
 /*

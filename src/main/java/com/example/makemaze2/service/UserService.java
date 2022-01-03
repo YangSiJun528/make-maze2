@@ -124,4 +124,13 @@ public class UserService {
         mapDto.setUserName(user.get().getName());
         return mapDto;
     }
+
+    public User loginByEmail(LoginRequestDto loginRequestDto) {
+        Optional<User> user = userRepository.findByEmail(loginRequestDto.getEmail());
+        if (user.isEmpty()) {
+            return null;
+        } else {
+            return user.get();
+        }
+    }
 }
