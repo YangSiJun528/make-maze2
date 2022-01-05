@@ -6,9 +6,11 @@ import com.example.makemaze2.domain.User;
 import com.example.makemaze2.dto.LikeResDto;
 import com.example.makemaze2.dto.LoginRequestDto;
 import com.example.makemaze2.dto.MapDto;
+import com.example.makemaze2.dto.ResMap;
 import com.example.makemaze2.service.LikeService;
 import com.example.makemaze2.service.MapService;
 import com.example.makemaze2.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -71,9 +73,9 @@ public class UserController {
     }
 
     @GetMapping("/map1/{mapId}")
-    public ResponseEntity<Map> getMapA(
+    public ResponseEntity<ResMap> getMapA(
             @PathVariable("mapId") String mapId
-    ) {
+    ) throws JsonProcessingException {
         return ResponseEntity.ok(mapService.findMapA(mapId));
     }
 

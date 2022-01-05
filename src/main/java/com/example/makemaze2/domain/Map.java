@@ -18,7 +18,7 @@ public class Map {
     @Column(name = "map_id")
     private Long mapId;
 
-    @Column(name = "content", length = 21845)
+    @Column(name = "content", columnDefinition = "LONGTEXT")
     private String content;
 
     @Column(name = "mapName")

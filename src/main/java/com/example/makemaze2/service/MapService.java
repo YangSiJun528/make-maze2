@@ -1,11 +1,13 @@
 package com.example.makemaze2.service;
 
 import com.example.makemaze2.domain.Map;
+import com.example.makemaze2.dto.ResMap;
 import com.example.makemaze2.repository.MapRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -54,9 +56,19 @@ public class MapService {
     return map.get();
     }
 
-    public Map findMapA(String mapId) {
+    public ResMap findMapA(String mapId) throws JsonProcessingException {
         Optional<Map> map = mapRepository.findById(Long.valueOf(mapId));
-        return map.get();
+        ArrayList<String> list = (ArrayList<String>) new ObjectMapper().readValue(map.get().getContent(), List.class);
+        ResMap resMap = ResMap.builder()
+                .content(list)
+                .img(map.get().getImg())
+                .mapCode(map.get().getMapCode())
+                .mapId(map.get().getMapId())
+                .mapName(map.get().getMapName())
+                .userGoogleId(map.get().getUserGoogleId())
+                .userName(map.get().getUserName())
+                .build();
+        return resMap;
     }
 }
 

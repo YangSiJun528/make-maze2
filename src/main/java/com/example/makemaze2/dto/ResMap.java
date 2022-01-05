@@ -1,19 +1,21 @@
 package com.example.makemaze2.dto;
 
-import com.example.makemaze2.domain.Map;
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
+
+import javax.persistence.Column;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MapDto {
+public class ResMap {
     private Long mapId;
+    private ArrayList content;
     private String mapName;
     private String mapCode;
-    private String block;
     private String img;
     private String userName;
     private String userGoogleId;
